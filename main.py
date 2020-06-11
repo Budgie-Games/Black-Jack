@@ -149,26 +149,29 @@ def game():
     root.update()
     cantt = 2
     dcantt = 2
-    if val == 21:
-        if card1i == cd["H11"].get or cd["S11"].get or cd["D11"].get or cd["C11"].get:
-            if card2i == cd["S1"].get or cd["C1"].get or cd["D1"].get or cd["H1"].get:
-                ress = "winb"
-                comment.config(text="You have got Black Jack!")
-                moneyg()
-            else:
-                ai()
-        elif card2i == cd["H11"].get or cd["S11"].get or cd["D11"].get or cd["C11"].get:
-            if card1i == cd["S1"].get or cd["C1"].get or cd["D1"].get or cd["H1"].get:
-                ress = "winb"
-                comment.config(text="You have got Black Jack!")
-                moneyg()
+    if cantt == 2:
+        if val == 21:
+            if card1i == cd["H11"].get or cd["S11"].get or cd["D11"].get or cd["C11"].get:
+                if card2i == cd["S1"].get or cd["C1"].get or cd["D1"].get or cd["H1"].get:
+                    ress = "winb"
+                    comment.config(text="You have got Black Jack!")
+                    moneyg()
+                else:
+                    ai()
+            elif card2i == cd["H11"].get or cd["S11"].get or cd["D11"].get or cd["C11"].get:
+                if card1i == cd["S1"].get or cd["C1"].get or cd["D1"].get or cd["H1"].get:
+                    ress = "winb"
+                    comment.config(text="You have got Black Jack!")
+                    moneyg()
+                else:
+                    ai()
             else:
                 ai()
         else:
-            ai()
+            moment = "play2"
+            comment.config(text="Stay or Hit??")
+            return 0
     else:
-        moment = "play2"
-        comment.config(text="Stay or Hit??")
         return 0
 
 
@@ -281,16 +284,17 @@ def ai():
     time.sleep(1)
     root.update()
     if dval == 21:
-        if dc1i == cd["H11"].get or cd["S11"].get or cd["D11"].get or cd["C11"].get:
-            if dc2i == cd["S1"].get or cd["C1"].get or cd["D1"].get or cd["H1"].get:
-                ress = "loss"
-                comment.config(text="Dealer have got Black Jack!")
-                moneyg()
-        elif dc2i == cd["H11"].get or cd["S11"].get or cd["D11"].get or cd["C11"].get:
-            if dc1i == cd["S1"].get or cd["C1"].get or cd["D1"].get or cd["H1"].get:
-                ress = "loss"
-                comment.config(text="Dealer have got Black Jack!")
-                moneyg()
+        if dcantt == 2:
+            if dc1i == cd["H11"].get or cd["S11"].get or cd["D11"].get or cd["C11"].get:
+                if dc2i == cd["S1"].get or cd["C1"].get or cd["D1"].get or cd["H1"].get:
+                    ress = "loss"
+                    comment.config(text="Dealer have got Black Jack!")
+                    moneyg()
+            elif dc2i == cd["H11"].get or cd["S11"].get or cd["D11"].get or cd["C11"].get:
+                if dc1i == cd["S1"].get or cd["C1"].get or cd["D1"].get or cd["H1"].get:
+                    ress = "loss"
+                    comment.config(text="Dealer have got Black Jack!")
+                    moneyg()
     elif val > dval:
         if dval < 17:
             if dcantt != 4:
@@ -319,9 +323,10 @@ def ai():
                     if dval > 20:
                         if dval == 21:
                             ai()
-                        comment.config(text="Dealer's busted!")
-                        ress = "win"
-                        moneyg()
+                        else:
+                            comment.config(text="Dealer's busted!")
+                            ress = "win"
+                            moneyg()
                     else:
                         ai()
                 elif dcantt == 3:
@@ -347,25 +352,34 @@ def ai():
                     if dval > 20:
                         if dval == 21:
                             pass
-                        comment.config(text="Dealer's busted!")
-                        ress = "win"
-                        moneyg()
+                        else:
+                            comment.config(text="Dealer's busted!")
+                            ress = "win"
+                            moneyg()
                     else:
                         ai()
             else:
                 comment.config(text="You won!")
+                time.sleep(1)
+                root.update()
                 ress = "win"
                 moneyg()
         else:
             comment.config(text="You won!")
+            time.sleep(1)
+            root.update()
             ress = "win"
             moneyg()
     elif dval == val:
         comment.config(text="Draw...")
+        time.sleep(1)
+        root.update()
         ress = "draw"
         moneyg()
     else:
         comment.config(text="You lost!")
+        time.sleep(1)
+        root.update()
         ress = "loss"
         moneyg()
 
