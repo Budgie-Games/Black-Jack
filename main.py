@@ -295,7 +295,7 @@ def ai():
                     ress = "loss"
                     comment.config(text="Dealer have got Black Jack!")
                     moneyg()
-    elif val > dval:
+    elif val >= dval:
         if dval < 17:
             if dcantt != 4:
                 time.sleep(1)
