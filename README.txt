@@ -3,6 +3,9 @@ This is a Black Jack game from Budgie Games!
 Installation:
 Unzip the file in a comfortable directory and make a shortcut off "Black Jack.exe"!
 
+To Update:
+Replace everything but not the file "bjdata.txt".
+
 Included in package:
 1: Image Library
 2: Data Library
