@@ -155,11 +155,15 @@ def game():
                 ress = "winb"
                 comment.config(text="You have got Black Jack!")
                 moneyg()
+            else:
+                ai()
         elif card2i == cd["H11"].get or cd["S11"].get or cd["D11"].get or cd["C11"].get:
             if card1i == cd["S1"].get or cd["C1"].get or cd["D1"].get or cd["H1"].get:
                 ress = "winb"
                 comment.config(text="You have got Black Jack!")
                 moneyg()
+            else:
+                ai()
         else:
             ai()
     else:
@@ -287,7 +291,7 @@ def ai():
                 ress = "loss"
                 comment.config(text="Dealer have got Black Jack!")
                 moneyg()
-    if val > dval:
+    elif val > dval:
         if dval < 17:
             if dcantt != 4:
                 time.sleep(1)
