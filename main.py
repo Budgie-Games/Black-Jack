@@ -197,9 +197,10 @@ def opti(f):
                         if val == 21:
                             ai()
                         comment.config(text="Aww, you got busted...")
+                        ress = "loss"
                         time.sleep(1)
                         root.update()
-                        ress = "loss"
+                        moment = "done"
                         moneyg()
                 elif cantt == 3:
                     tem = random.choice(co)
@@ -225,9 +226,10 @@ def opti(f):
                         if val == 21:
                             ai()
                         comment.config(text="Aww, you got busted...")
+                        ress = "loss"
                         time.sleep(1)
                         root.update()
-                        ress = "loss"
+                        moment = "done"
                         moneyg()
                 elif cantt == 4:
                     tem = random.choice(co)
@@ -253,9 +255,10 @@ def opti(f):
                         if val == 21:
                             ai()
                         comment.config(text="Aww, you got busted...")
+                        ress = "loss"
                         time.sleep(1)
                         root.update()
-                        ress = "loss"
+                        moment = "done"
                         moneyg()
             else:
                 ai()
@@ -420,6 +423,7 @@ root.title("Black Jack")
 root.state('zoomed')
 root.resizable(False, False)
 root.iconbitmap(cwd + "\\images\\spade.ico")
+root.config(bg="green")
 
 #databases and render assets
 temporarly = 0
@@ -507,21 +511,21 @@ dc4i = cd["BACK"].get
 #display pictures
 
 #all screen widgets
-cash = Label(root, text="$" + str(money), width=10, font=("Helvetica", 36))
-img = Label(root, image=chip)
+cash = Label(root, text="$" + str(money), width=10, bg="green", fg="white", font=("Helvetica", 36))
+img = Label(root, image=chip, bg="green")
 img.image = chip
-deck = Button(root, image=back, command=lambda: opti("h"))
-stay = Button(root, text="STAY", font=("Helvetica", 16), width=10, command=lambda: opti("s"))
+deck = Button(root, image=back, command=lambda: opti("h"), bg="green")
+stay = Button(root, text="STAY", font=("Helvetica", 16), width=10, command=lambda: opti("s"), bg="green", fg="white")
 deck.place(x=183, y=300)
 img.place(x=183, y=700)
 cash.place(x=95, y=850)
 stay.place(x=178, y=500)
 
-card1 = Label(root, image=card1i)
-card2 = Label(root, image=card2i)
-card3 = Label(root, image=card3i)
-card4 = Label(root, image=card4i)
-card5 = Label(root, image=card5i)
+card1 = Label(root, image=card1i, bg="green")
+card2 = Label(root, image=card2i, bg="green")
+card3 = Label(root, image=card3i, bg="green")
+card4 = Label(root, image=card4i, bg="green")
+card5 = Label(root, image=card5i, bg="green")
 card1.image = card1i
 card2.image = card2i
 card3.image = card3i
@@ -538,10 +542,10 @@ card3.place_forget()
 card4.place_forget()
 card5.place_forget()
 
-dc1 = Label(root, image=dc1i)
-dc2 = Label(root, image=dc2i)
-dc3 = Label(root, image=dc3i)
-dc4 = Label(root, image=dc4i)
+dc1 = Label(root, image=dc1i, bg="green")
+dc2 = Label(root, image=dc2i, bg="green")
+dc3 = Label(root, image=dc3i, bg="green")
+dc4 = Label(root, image=dc4i, bg="green")
 dc1.image = dc1i
 dc2.image = dc2i
 dc3.image = dc3i
@@ -555,24 +559,29 @@ dc2.place_forget()
 dc3.place_forget()
 dc4.place_forget()
 
-beta = Label(root, text="$0", font=("Helvetica", 16), width=10)
-bet = Button(root, image=chip, command=lambda: betopti("d"))
+beta = Label(root, text="$0", font=("Helvetica", 16), width=10, bg="green", fg="white")
+bet = Button(root, image=chip, bg="green", command=lambda: betopti("d"))
 bet.image = chip
 bet.place(x=903, y=850)
 beta.place(x=900, y=980)
 
-comment = Label(root, text="Welcome, please place a bet to play!", font=("Helvetica", 16), width=100)
+comment = Label(root, text="Welcome, please place a bet to play!", font=("Helvetica", 16), width=100, bg="green",
+                fg="white")
 comment.place(x=900, y=1015)
 
-betop1 = Button(root, text="+100", font=("Helvetica", 16), width=5, command=lambda: betopti("+100"))
-betop2 = Button(root, text="+50", font=("Helvetica", 16), width=5, command=lambda: betopti("+50"))
-betop3 = Button(root, text="+10", font=("Helvetica", 16), width=5, command=lambda: betopti("+10"))
-betop4 = Button(root, text="-10", font=("Helvetica", 16), width=5, command=lambda: betopti("-10"))
+betop1 = Button(root, text="+100", font=("Helvetica", 16), width=5, command=lambda: betopti("+100"),
+                bg="green", fg="white")
+betop2 = Button(root, text="+50", font=("Helvetica", 16), width=5, command=lambda: betopti("+50"),
+                bg="green", fg="white")
+betop3 = Button(root, text="+10", font=("Helvetica", 16), width=5, command=lambda: betopti("+10"),
+                bg="green", fg="white")
+betop4 = Button(root, text="-10", font=("Helvetica", 16), width=5, command=lambda: betopti("-10"),
+                bg="green", fg="white")
 betop1.place(x=700, y=980)
 betop3.place(x=560, y=980)
 betop2.place(x=630, y=980)
 betop4.place(x=490, y=980)
-betops = Label(root, text="Bet Options", font=("Helvetica", 16), width=20)
+betops = Label(root, text="Bet Options", font=("Helvetica", 16), width=20, bg="green", fg="white")
 betops.place(x=508, y=930)
 
 xe = threading.Thread(target=mainfunc)
