@@ -1,5 +1,5 @@
 from tkinter import *
-import os, random, time, threading
+import os, random, time, threading, subprocess
 from PIL import ImageTk
 import PIL.Image
 
@@ -9,6 +9,11 @@ cwd = os.getcwd()
 with open(cwd + "\\data\\bjdata.txt", "r")as file:
     money = file.read()
     money = int(money)
+
+with open(cwd + "\\data\\cwddata.txt", "w")as file:
+    file.truncate()
+    file.seek(0)
+    file.write(cwd)
 
 #moments
 moment = "start"
@@ -427,6 +432,14 @@ def cards():
     mainfunc()
 
 
+def shop():
+    global moment
+    if moment == "bet" or "start":
+        root.destroy()
+        com = cwd + "\\skin.exe"
+        subprocess.call(com)
+
+
 #database creator
 class varin(object):
 
@@ -441,7 +454,6 @@ root.title("Black Jack")
 root.state('zoomed')
 root.resizable(False, False)
 root.iconbitmap(cwd + "\\images\\spade.ico")
-root.config(bg="green")
 
 #databases and render assets
 temporarly = 0
@@ -503,10 +515,30 @@ def render():
             nums = int(nums)
             nums = nums + 1
         elif s == 14:
-            load = PIL.Image.open(cwd + "\\images\\PNG\\gray_back.png")
-            load2 = load.resize((115, 176))
-            temporarly = PIL.ImageTk.PhotoImage(load2)
-            cd["BACK"] = varin(temporarly)
+            with open(cwd + "\\data\\eqski.txt", "r")as file:
+                # last == colour
+                tempo = file.read()
+                tempo = tempo[0:1]
+                if tempo == "1":
+                    load = PIL.Image.open(cwd + "\\images\\PNG\\gray_back.png")
+                    load2 = load.resize((115, 176))
+                    temporarly = PIL.ImageTk.PhotoImage(load2)
+                    cd["BACK"] = varin(temporarly)
+                elif tempo == "2":
+                    load = PIL.Image.open(cwd + "\\images\\PNG\\t1.png")
+                    load2 = load.resize((115, 176))
+                    temporarly = PIL.ImageTk.PhotoImage(load2)
+                    cd["BACK"] = varin(temporarly)
+                elif tempo == "3":
+                    load = PIL.Image.open(cwd + "\\images\\PNG\\t2.png")
+                    load2 = load.resize((115, 176))
+                    temporarly = PIL.ImageTk.PhotoImage(load2)
+                    cd["BACK"] = varin(temporarly)
+                elif tempo == "4":
+                    load = PIL.Image.open(cwd + "\\images\\PNG\\t3.png")
+                    load2 = load.resize((115, 176))
+                    temporarly = PIL.ImageTk.PhotoImage(load2)
+                    cd["BACK"] = varin(temporarly)
             load = PIL.Image.open(cwd + "\\images\\chip.png")
             load2 = load.resize((115, 115))
             temporarly = PIL.ImageTk.PhotoImage(load2)
@@ -528,79 +560,314 @@ dc3i = cd["BACK"].get
 dc4i = cd["BACK"].get
 #display pictures
 
-#all screen widgets
-cash = Label(root, text="$" + str(money), width=10, bg="green", fg="white", font=("Helvetica", 36))
-img = Label(root, image=chip, bg="green")
-img.image = chip
-deck = Button(root, image=back, command=lambda: opti("h"), bg="green")
-stay = Button(root, text="STAY", font=("Helvetica", 16), width=10, command=lambda: opti("s"), bg="green", fg="white")
-deck.place(x=183, y=300)
-img.place(x=183, y=700)
-cash.place(x=95, y=850)
-stay.place(x=178, y=500)
+with open(cwd + "\\data\\eqski.txt", "r")as file:
+    #last == colour
+    tempo = file.read()
+    tempo = tempo[1:]
+    if tempo == "1":
+        root.config(bg="green")
+        cash = Label(root, text="$" + str(money), width=10, bg="green", fg="white", font=("Helvetica", 36))
+        img = Label(root, image=chip, bg="green")
+        img.image = chip
+        deck = Button(root, image=back, command=lambda: opti("h"), bg="green")
+        stay = Button(root, text="STAY", font=("Helvetica", 16), width=10, command=lambda: opti("s"), bg="green",
+                      fg="white")
+        bu = Button(root, text="Skin Shop", font=("Helvetica", 16), fg="white", bg="green", command=lambda: shop())
+        bu.place(x=50, y=1000)
+        deck.place(x=183, y=300)
+        img.place(x=183, y=700)
+        cash.place(x=95, y=850)
+        stay.place(x=178, y=500)
 
-card1 = Label(root, image=card1i, bg="green")
-card2 = Label(root, image=card2i, bg="green")
-card3 = Label(root, image=card3i, bg="green")
-card4 = Label(root, image=card4i, bg="green")
-card5 = Label(root, image=card5i, bg="green")
-card1.image = card1i
-card2.image = card2i
-card3.image = card3i
-card4.image = card4i
-card5.image = card5i
-card1.place(x=903, y=650)
-card2.place(x=960, y=562)
-card3.place(x=1017, y=474)
-card4.place(x=1074, y=386)
-card5.place(x=1137, y=298)
-card1.place_forget()
-card2.place_forget()
-card3.place_forget()
-card4.place_forget()
-card5.place_forget()
+        card1 = Label(root, image=card1i, bg="green")
+        card2 = Label(root, image=card2i, bg="green")
+        card3 = Label(root, image=card3i, bg="green")
+        card4 = Label(root, image=card4i, bg="green")
+        card5 = Label(root, image=card5i, bg="green")
+        card1.image = card1i
+        card2.image = card2i
+        card3.image = card3i
+        card4.image = card4i
+        card5.image = card5i
+        card1.place(x=903, y=650)
+        card2.place(x=960, y=562)
+        card3.place(x=1017, y=474)
+        card4.place(x=1074, y=386)
+        card5.place(x=1137, y=298)
+        card1.place_forget()
+        card2.place_forget()
+        card3.place_forget()
+        card4.place_forget()
+        card5.place_forget()
 
-dc1 = Label(root, image=dc1i, bg="green")
-dc2 = Label(root, image=dc2i, bg="green")
-dc3 = Label(root, image=dc3i, bg="green")
-dc4 = Label(root, image=dc4i, bg="green")
-dc1.image = dc1i
-dc2.image = dc2i
-dc3.image = dc3i
-dc4.image = dc4i
-dc1.place(x=640, y=75)
-dc2.place(x=800, y=75)
-dc3.place(x=960, y=75)
-dc4.place(x=1120, y=75)
-dc1.place_forget()
-dc2.place_forget()
-dc3.place_forget()
-dc4.place_forget()
+        dc1 = Label(root, image=dc1i, bg="green")
+        dc2 = Label(root, image=dc2i, bg="green")
+        dc3 = Label(root, image=dc3i, bg="green")
+        dc4 = Label(root, image=dc4i, bg="green")
+        dc1.image = dc1i
+        dc2.image = dc2i
+        dc3.image = dc3i
+        dc4.image = dc4i
+        dc1.place(x=640, y=75)
+        dc2.place(x=800, y=75)
+        dc3.place(x=960, y=75)
+        dc4.place(x=1120, y=75)
+        dc1.place_forget()
+        dc2.place_forget()
+        dc3.place_forget()
+        dc4.place_forget()
 
-beta = Label(root, text="$0", font=("Helvetica", 16), width=10, bg="green", fg="white")
-bet = Button(root, image=chip, bg="green", command=lambda: betopti("d"))
-bet.image = chip
-bet.place(x=903, y=850)
-beta.place(x=900, y=980)
+        beta = Label(root, text="$0", font=("Helvetica", 16), width=10, bg="green", fg="white")
+        bet = Button(root, image=chip, bg="green", command=lambda: betopti("d"))
+        bet.image = chip
+        bet.place(x=903, y=850)
+        beta.place(x=900, y=980)
 
-comment = Label(root, text="Welcome, please place a bet to play!", font=("Helvetica", 16), width=100, bg="green",
-                fg="white")
-comment.place(x=900, y=1015)
+        comment = Label(root, text="Welcome, please place a bet to play!", font=("Helvetica", 16), width=100,
+                        bg="green",
+                        fg="white")
+        comment.place(x=900, y=1015)
 
-betop1 = Button(root, text="+100", font=("Helvetica", 16), width=5, command=lambda: betopti("+100"),
-                bg="green", fg="white")
-betop2 = Button(root, text="+50", font=("Helvetica", 16), width=5, command=lambda: betopti("+50"),
-                bg="green", fg="white")
-betop3 = Button(root, text="+10", font=("Helvetica", 16), width=5, command=lambda: betopti("+10"),
-                bg="green", fg="white")
-betop4 = Button(root, text="-10", font=("Helvetica", 16), width=5, command=lambda: betopti("-10"),
-                bg="green", fg="white")
-betop1.place(x=700, y=980)
-betop3.place(x=560, y=980)
-betop2.place(x=630, y=980)
-betop4.place(x=490, y=980)
-betops = Label(root, text="Bet Options", font=("Helvetica", 16), width=20, bg="green", fg="white")
-betops.place(x=508, y=930)
+        betop1 = Button(root, text="+100", font=("Helvetica", 16), width=5, command=lambda: betopti("+100"),
+                        bg="green", fg="white")
+        betop2 = Button(root, text="+50", font=("Helvetica", 16), width=5, command=lambda: betopti("+50"),
+                        bg="green", fg="white")
+        betop3 = Button(root, text="+10", font=("Helvetica", 16), width=5, command=lambda: betopti("+10"),
+                        bg="green", fg="white")
+        betop4 = Button(root, text="-10", font=("Helvetica", 16), width=5, command=lambda: betopti("-10"),
+                        bg="green", fg="white")
+        betop1.place(x=700, y=980)
+        betop3.place(x=560, y=980)
+        betop2.place(x=630, y=980)
+        betop4.place(x=490, y=980)
+        betops = Label(root, text="Bet Options", font=("Helvetica", 16), width=20, bg="green", fg="white")
+        betops.place(x=508, y=930)
+    elif tempo == "2":
+        cash = Label(root, text="$" + str(money), width=10, font=("Helvetica", 36))
+        img = Label(root, image=chip)
+        img.image = chip
+        deck = Button(root, image=back, command=lambda: opti("h"))
+        stay = Button(root, text="STAY", font=("Helvetica", 16), width=10, command=lambda: opti("s"))
+        bu = Button(root, text="Skin Shop", font=("Helvetica", 16), command=lambda: shop())
+        bu.place(x=50, y=1000)
+        deck.place(x=183, y=300)
+        img.place(x=183, y=700)
+        cash.place(x=95, y=850)
+        stay.place(x=178, y=500)
+
+        card1 = Label(root, image=card1i)
+        card2 = Label(root, image=card2i)
+        card3 = Label(root, image=card3i)
+        card4 = Label(root, image=card4i)
+        card5 = Label(root, image=card5i)
+        card1.image = card1i
+        card2.image = card2i
+        card3.image = card3i
+        card4.image = card4i
+        card5.image = card5i
+        card1.place(x=903, y=650)
+        card2.place(x=960, y=562)
+        card3.place(x=1017, y=474)
+        card4.place(x=1074, y=386)
+        card5.place(x=1137, y=298)
+        card1.place_forget()
+        card2.place_forget()
+        card3.place_forget()
+        card4.place_forget()
+        card5.place_forget()
+
+        dc1 = Label(root, image=dc1i)
+        dc2 = Label(root, image=dc2i)
+        dc3 = Label(root, image=dc3i)
+        dc4 = Label(root, image=dc4i)
+        dc1.image = dc1i
+        dc2.image = dc2i
+        dc3.image = dc3i
+        dc4.image = dc4i
+        dc1.place(x=640, y=75)
+        dc2.place(x=800, y=75)
+        dc3.place(x=960, y=75)
+        dc4.place(x=1120, y=75)
+        dc1.place_forget()
+        dc2.place_forget()
+        dc3.place_forget()
+        dc4.place_forget()
+
+        beta = Label(root, text="$0", font=("Helvetica", 16), width=10)
+        bet = Button(root, image=chip, command=lambda: betopti("d"))
+        bet.image = chip
+        bet.place(x=903, y=850)
+        beta.place(x=900, y=980)
+
+        comment = Label(root, text="Welcome, please place a bet to play!", font=("Helvetica", 16), width=100)
+        comment.place(x=900, y=1015)
+
+        betop1 = Button(root, text="+100", font=("Helvetica", 16), width=5, command=lambda: betopti("+100"))
+        betop2 = Button(root, text="+50", font=("Helvetica", 16), width=5, command=lambda: betopti("+50"))
+        betop3 = Button(root, text="+10", font=("Helvetica", 16), width=5, command=lambda: betopti("+10"))
+        betop4 = Button(root, text="-10", font=("Helvetica", 16), width=5, command=lambda: betopti("-10"))
+        betop1.place(x=700, y=980)
+        betop3.place(x=560, y=980)
+        betop2.place(x=630, y=980)
+        betop4.place(x=490, y=980)
+        betops = Label(root, text="Bet Options", font=("Helvetica", 16), width=20)
+        betops.place(x=508, y=930)
+    elif tempo == "3":
+        root.config(bg="blue")
+        cash = Label(root, text="$" + str(money), width=10, bg="blue", fg="white", font=("Helvetica", 36))
+        img = Label(root, image=chip, bg="blue")
+        img.image = chip
+        deck = Button(root, image=back, command=lambda: opti("h"), bg="blue")
+        stay = Button(root, text="STAY", font=("Helvetica", 16), width=10, command=lambda: opti("s"), bg="blue",
+                      fg="white")
+        bu = Button(root, text="Skin Shop", font=("Helvetica", 16), fg="white", bg="blue", command=lambda: shop())
+        bu.place(x=50, y=1000)
+        deck.place(x=183, y=300)
+        img.place(x=183, y=700)
+        cash.place(x=95, y=850)
+        stay.place(x=178, y=500)
+
+        card1 = Label(root, image=card1i, bg="blue")
+        card2 = Label(root, image=card2i, bg="blue")
+        card3 = Label(root, image=card3i, bg="blue")
+        card4 = Label(root, image=card4i, bg="blue")
+        card5 = Label(root, image=card5i, bg="blue")
+        card1.image = card1i
+        card2.image = card2i
+        card3.image = card3i
+        card4.image = card4i
+        card5.image = card5i
+        card1.place(x=903, y=650)
+        card2.place(x=960, y=562)
+        card3.place(x=1017, y=474)
+        card4.place(x=1074, y=386)
+        card5.place(x=1137, y=298)
+        card1.place_forget()
+        card2.place_forget()
+        card3.place_forget()
+        card4.place_forget()
+        card5.place_forget()
+
+        dc1 = Label(root, image=dc1i, bg="blue")
+        dc2 = Label(root, image=dc2i, bg="blue")
+        dc3 = Label(root, image=dc3i, bg="blue")
+        dc4 = Label(root, image=dc4i, bg="blue")
+        dc1.image = dc1i
+        dc2.image = dc2i
+        dc3.image = dc3i
+        dc4.image = dc4i
+        dc1.place(x=640, y=75)
+        dc2.place(x=800, y=75)
+        dc3.place(x=960, y=75)
+        dc4.place(x=1120, y=75)
+        dc1.place_forget()
+        dc2.place_forget()
+        dc3.place_forget()
+        dc4.place_forget()
+
+        beta = Label(root, text="$0", font=("Helvetica", 16), width=10, bg="blue", fg="white")
+        bet = Button(root, image=chip, bg="blue", command=lambda: betopti("d"))
+        bet.image = chip
+        bet.place(x=903, y=850)
+        beta.place(x=900, y=980)
+
+        comment = Label(root, text="Welcome, please place a bet to play!", font=("Helvetica", 16), width=100,
+                        bg="blue",
+                        fg="white")
+        comment.place(x=900, y=1015)
+
+        betop1 = Button(root, text="+100", font=("Helvetica", 16), width=5, command=lambda: betopti("+100"),
+                        bg="blue", fg="white")
+        betop2 = Button(root, text="+50", font=("Helvetica", 16), width=5, command=lambda: betopti("+50"),
+                        bg="blue", fg="white")
+        betop3 = Button(root, text="+10", font=("Helvetica", 16), width=5, command=lambda: betopti("+10"),
+                        bg="blue", fg="white")
+        betop4 = Button(root, text="-10", font=("Helvetica", 16), width=5, command=lambda: betopti("-10"),
+                        bg="blue", fg="white")
+        betop1.place(x=700, y=980)
+        betop3.place(x=560, y=980)
+        betop2.place(x=630, y=980)
+        betop4.place(x=490, y=980)
+        betops = Label(root, text="Bet Options", font=("Helvetica", 16), width=20, bg="blue", fg="white")
+        betops.place(x=508, y=930)
+    elif tempo == "4":
+        root.config(bg="#8257fe")
+        cash = Label(root, text="$" + str(money), width=10, bg="#8257fe", fg="white", font=("Helvetica", 36))
+        img = Label(root, image=chip, bg="#8257fe")
+        img.image = chip
+        deck = Button(root, image=back, command=lambda: opti("h"), bg="#8257fe")
+        stay = Button(root, text="STAY", font=("Helvetica", 16), width=10, command=lambda: opti("s"), bg="#8257fe",
+                      fg="white")
+        bu = Button(root, text="Skin Shop", font=("Helvetica", 16), fg="white", bg="#8257fe", command=lambda: shop())
+        bu.place(x=50, y=1000)
+        deck.place(x=183, y=300)
+        img.place(x=183, y=700)
+        cash.place(x=95, y=850)
+        stay.place(x=178, y=500)
+
+        card1 = Label(root, image=card1i, bg="#8257fe")
+        card2 = Label(root, image=card2i, bg="#8257fe")
+        card3 = Label(root, image=card3i, bg="#8257fe")
+        card4 = Label(root, image=card4i, bg="#8257fe")
+        card5 = Label(root, image=card5i, bg="#8257fe")
+        card1.image = card1i
+        card2.image = card2i
+        card3.image = card3i
+        card4.image = card4i
+        card5.image = card5i
+        card1.place(x=903, y=650)
+        card2.place(x=960, y=562)
+        card3.place(x=1017, y=474)
+        card4.place(x=1074, y=386)
+        card5.place(x=1137, y=298)
+        card1.place_forget()
+        card2.place_forget()
+        card3.place_forget()
+        card4.place_forget()
+        card5.place_forget()
+
+        dc1 = Label(root, image=dc1i, bg="#8257fe")
+        dc2 = Label(root, image=dc2i, bg="#8257fe")
+        dc3 = Label(root, image=dc3i, bg="#8257fe")
+        dc4 = Label(root, image=dc4i, bg="#8257fe")
+        dc1.image = dc1i
+        dc2.image = dc2i
+        dc3.image = dc3i
+        dc4.image = dc4i
+        dc1.place(x=640, y=75)
+        dc2.place(x=800, y=75)
+        dc3.place(x=960, y=75)
+        dc4.place(x=1120, y=75)
+        dc1.place_forget()
+        dc2.place_forget()
+        dc3.place_forget()
+        dc4.place_forget()
+
+        beta = Label(root, text="$0", font=("Helvetica", 16), width=10, bg="#8257fe", fg="white")
+        bet = Button(root, image=chip, bg="#8257fe", command=lambda: betopti("d"))
+        bet.image = chip
+        bet.place(x=903, y=850)
+        beta.place(x=900, y=980)
+
+        comment = Label(root, text="Welcome, please place a bet to play!", font=("Helvetica", 16), width=100,
+                        bg="#8257fe",
+                        fg="white")
+        comment.place(x=900, y=1015)
+
+        betop1 = Button(root, text="+100", font=("Helvetica", 16), width=5, command=lambda: betopti("+100"),
+                        bg="#8257fe", fg="white")
+        betop2 = Button(root, text="+50", font=("Helvetica", 16), width=5, command=lambda: betopti("+50"),
+                        bg="#8257fe", fg="white")
+        betop3 = Button(root, text="+10", font=("Helvetica", 16), width=5, command=lambda: betopti("+10"),
+                        bg="#8257fe", fg="white")
+        betop4 = Button(root, text="-10", font=("Helvetica", 16), width=5, command=lambda: betopti("-10"),
+                        bg="#8257fe", fg="white")
+        betop1.place(x=700, y=980)
+        betop3.place(x=560, y=980)
+        betop2.place(x=630, y=980)
+        betop4.place(x=490, y=980)
+        betops = Label(root, text="Bet Options", font=("Helvetica", 16), width=20, bg="#8257fe", fg="white")
+        betops.place(x=508, y=930)
 
 xe = threading.Thread(target=mainfunc)
 xe.start()
