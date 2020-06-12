@@ -94,7 +94,7 @@ def main(arg):
             tempo = file.read()
             file.truncate()
             file.seek(0)
-            file.write(tempo[0:] + "1")
+            file.write(tempo[0:1] + "1")
     elif arg == "1b":
         if tier1b:
             with open(cwda + "eqski.txt", "r+")as file:
